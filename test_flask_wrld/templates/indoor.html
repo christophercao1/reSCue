@@ -1,10 +1,10 @@
- <head>
+<head>
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
 
  
-     <title>reSCue - outdoor</title>
+     <title>reSCue - indoor</title>
  
      <!-- Bootstrap core CSS -->
      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +25,14 @@
 		<form class="sample-form">
 			<input type="text" id="dummy" name="dummyPoints" placeholder="dummyPoints">
 			<button class="btn btn-primary" type="button" onclick="retrieve('dummy');">Change</button>
+			<button class=btn btn-primary" type="button" onclick="exitIndoors()">Exit Indoors</button>
+			<button class=btn btn-primary" type="button" onclick="moveUp()">Move Up a Floor</button>
+			<button class=btn btn-primary" type="button" onclick="moveDown()">Move Down a Floor</button>
+			<!-- <button class=btn btn-primary" type="button" onclick="remove()">Remove Heat Map</button> -->
+			<button class=btn btn-primary" type="button" onclick="redraw()">Redraw Heat Map</button>
 		</form>
 	</div>
 
 
-	<script src="{{ url_for('static', filename='outdoor-heat-map.js') }}"></script>
+	<script src="{{ url_for('static', filename='indoor-heat-map.js') }}"></script>
 </body>
