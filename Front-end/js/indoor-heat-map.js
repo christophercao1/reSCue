@@ -12,7 +12,6 @@ var indoor_map = L.Wrld.map("map", "90de4007cdd170854398f362eb1c834b", {
 	indoorsEnabled: true
 });
 
-var indoor_heat = L.heatLayer([]).addTo(indoor_map);
 var circles = L.layerGroup([]);
 
 socket.on('update', function(data) {
@@ -26,17 +25,16 @@ socket.on('update', function(data) {
   circles.clearLayers();
   var circleArray = [];
   for (var i=0; i < objectArray.length; i++) {
-    // locArray.push([objectArray[i][0], objectArray[i][1]]);
     var obj = L.circle([objectArray[i][0], objectArray[i][1]], { radius: 1, indoorMapFloorId: objectArray[i][2],
-		indoorMapId: "f4795fc6-7fa1-460e-b449-82c4a957f955"})
-		.addTo(indoor_map);
+		indoorMapId: "f4795fc6-7fa1-460e-b449-82c4a957f955"});
     circles.addLayer(obj);
   }
+  circles.addTo(indoor_map);
   console.log(circles.getLayers().length);
   // circles = L.layerGroup(circleArray)
   // outdoor_heat.setLatLngs(objectArray);
   // indoor_heat.setLatLngs(locArray);
-}, indoor_map, indoor_heat);
+}, indoor_map, circles);
 
 
 var marker = L.marker(indoorCoords, { title: "idk"}).addTo(indoor_map);
