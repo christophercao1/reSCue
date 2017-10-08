@@ -12,79 +12,95 @@ A basic web service to accept CMX data from a Cisco Meraki network
 */
 
 // CHANGE THESE CONFIGURATIONS to match your CMX configuration
-var port = process.env.OVERRIDE_PORT || process.env.PORT || 1890;
-var secret = process.env.SECRET || "meraki";
-var validator = process.env.VALIDATOR || "c8b77133f4bd2218df387186212a6e946d5b4207";
-var route = process.env.ROUTE || "/cmx";
+var port = 1890;
+var secret = "meraki";
+var validator = "c8b77133f4bd2218df387186212a6e946d5b4207";
+var route = "/cmx";
 var path = require('path');
 // Express Server
 var express = require('express');
+// Required for CORS. Without it, socket throws error
 var cors = require('cors');
 var app = express();
-
+// app.use(express.static(__dirname));
 var server = require('http').Server(app);
 
-var io = require('socket.io')(server)//, {origins:"*:*"});
+var io = require('socket.io')(server);//, {origins:"*:*"});
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cors());
-app.use(cors({credentials: true, origin: 'http://localhost:1891'}));
+app.use(cors({credentials: true, origin: 'http://localhost:1890'}));
 app.use(function(request, response, next) {
  response.header("Access-Control-Allow-Origin", "*");
  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
  next();
 });
 
-// app.get('*', function(req, res) {
-//   res.send('<script src="/socket.io/socket.io.js"></script><script>var socket = io();socket.on("update", function(){console.log("sdfs")})</script>')
+// io.on('connection', function(socket){
+//   console.log(socket.id)
+//   socket.emit('update', {hi: 'there'})
 // })
 
-
-
-io.on('connection', function(socket){
-  console.log(socket.id)
-  socket.emit('update', {hi: 'there'})
-})
-
 server.listen(1891);
-// server.listen(1890);
+
+// io.on('connection', function(socket){
+//   console.log(socket.id)
+//   socket.emit('update', {hi: 'there'})
+// });
+
+app.use(express.static(__dirname));
+
 
 // All CMX JSON data will end up here. Send it to a database or whatever you fancy.
 // data format specifications: https://documentation.meraki.com/MR/Monitoring_and_Reporting/CMX_Analytics#Version_2.0
 function cmxData(data) {
     // console.log("JSON Feed: " + JSON.stringify(data, null, 2));
-    var json = JSON.stringify(data, null, 2);
+    // var json = JSON.stringify(data, null, 2);
     var observations = data.observations;
-
     var locationsArray = [];
+    var sumX = 0;
+    var sumY = 0;
+    var countX = 0;
+    var countY = 0;
+// 37.871016, -122.250791
 
     observations.forEach(function(observation) {
-        var jsonData = {};
-        jsonData['lat'] = (observation.location.lat !== null) ? observation.location.lat : '';
-        jsonData['lng'] = (observation.location.lng !== null) ? observation.location.lng : '';
-        locationsArray.push(jsonData);
-    }, locationsArray);
+        var jsonData = [];
+        jsonData.push(observation.location.lat);
+        jsonData.push(observation.location.lng);
+        if (!isNaN(jsonData[0])  && !isNaN(jsonData[1])) {
+          // sumX += jsonData[0];
+          // sumY += jsonData[1];
+          // countX += 1;
+          // countY += 1;
+          jsonData[0] += 0.0013;
+          jsonData[1] += 0.0009;
+          locationsArray.push(jsonData);
+        }
+    }, locationsArray, sumX, sumY, countX, countY);
 
+    console.log("Average X: " + sumX/countX);
+    console.log("Average Y: " + sumY/countY);
     // if locationsArray is not empty, trigger an event
     if (locationsArray.length > 0) {
-        io.emit('update', {location: locationsArray});
+        io.emit('update', {locations: locationsArray});
     }
 
 };
 
-// CMX Location Protocol, see https://documentation.meraki.com/MR/Monitoring_and_Reporting/CMX_Analytics#API_Configuration
-//
-// Meraki asks for us to know the secret
+// // CMX Location Protocol, see https://documentation.meraki.com/MR/Monitoring_and_Reporting/CMX_Analytics#API_Configuration
+// //
+// // Meraki asks for us to know the secret
 app.get(route, function (req, res) {
     console.log("Validator = " + validator);
     res.status(200).send(validator);
 });
-//
-// Getting the flow of data every 1 to 2 minutes
+// //
+// // Getting the flow of data every 1 to 2 minutes
 app.post(route, function (req, res) {
     if (req.body.secret == secret) {
-        console.log("Secret verified 2");
+        console.log("Secret verified");
         cmxData(req.body.data);
     } else {
         console.log("Secret was invalid");
@@ -92,24 +108,25 @@ app.post(route, function (req, res) {
     res.status(200);
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname+'/index.html'));
-});
 
-
-app.get('/indoor', function (req,res) {
-  res.sendFile(path.join(__dirname + '/indoor.html'));
-});
-
-app.post('/modifyMap', function (req,res) {
-
-});
-
-app.post('/modifyIndoor', function(req,res) {
-
-});
+// app.get('/indoor', function (req,res) {
+//   res.sendFile(path.join(__dirname + '/indoor.html'));
+// });
+//
+// app.post('/modifyMap', function (req,res) {
+//
+// });
+//
+// app.post('/modifyIndoor', function(req,res) {
+//
+// });
 
 // Start server
 app.listen(port, function () {
     console.log("CMX Receiver listening on port: " + port);
 });
+
+// var server = app.listen(port, function () {
+//   var port = server.address().port;
+//   console.log('Listening at http://localhost:' + port + ' exporting the directory ' + __dirname);
+// })
