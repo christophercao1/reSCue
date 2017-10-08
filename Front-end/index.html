@@ -16,6 +16,18 @@
     <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"> </script>
+    <!-- socket -->
+    <script src="http://localhost:1891/socket.io/socket.io.js"></script>
+    <!-- wrld api  -->
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <!-- leaflet css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+    <!-- leaflet heatmap plugin -->
+    <script src="/js/leaflet-heat.js"></script>
+
     <!-- Favicon-->
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome.css">
@@ -64,7 +76,7 @@
                 <div class="col-xl-3 col-sm-6">
                   <div class="item d-flex align-items-center">
                     <div class="icon bg-violet"><i class="icon-user"></i></div>
-                    <div class="title"><span>New<br>Clients</span>
+                    <div class="title"><span>Devices<br>Active</span>
                       <div class="progress">
                         <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
                       </div>
@@ -78,7 +90,7 @@
                 <div class="col-xl-3 col-sm-6">
                   <div class="item d-flex align-items-center">
                     <div class="icon bg-red"><i class="icon-padnote"></i></div>
-                    <div class="title"><span>Work<br>Orders</span>
+                    <div class="title"><span>Central<br>Coordinate</span>
                       <div class="progress">
                         <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
                       </div>
@@ -92,7 +104,7 @@
                 <div class="col-xl-3 col-sm-6">
                   <div class="item d-flex align-items-center">
                     <div class="icon bg-green"><i class="icon-bill"></i></div>
-                    <div class="title"><span>New<br>Invoices</span>
+                    <div class="title"><span>Twitter<br>Mentions</span>
                       <div class="progress">
                         <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
                       </div>
@@ -127,7 +139,7 @@
                 <!-- Line Chart -->
                 <div class="chart col-lg-8 col-12">
                   <div class="line-chart bg-white d-flex align-items-center justify-content-center has-shadow">
-                      <div id="mapid" height=500px></div>
+                      <div id="map" height=500px></div>
                   </div>
                 </div>
 
@@ -150,15 +162,13 @@
                         <div class="text"><a href="#">
                             <h3 class="h5">Lorem Ipsum Dolor</h3></a><small>Posted on 5th June 2017 by Sam Martinez.   </small></div>
                       </div>
-                
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-
-
 
           <!-- Page Footer-->
           <footer class="main-footer">
@@ -188,6 +198,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="js/charts-home.js"></script>
     <script src="js/front.js"></script>
+
+    <!-- javascript file -->
+  	<script src="/js/outdoor-heat-map.js"></script>
 
   </body>
 </html>
