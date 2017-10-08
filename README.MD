@@ -8,12 +8,18 @@ The dashboard was initially created with first-responders in mind because it all
 
 The app is built with a Bootstrap client alongside a NodeJS server. The app utilizes WRLD api to generate the map due to the team's excitement towards working with 3D maps. Cisco Meraki's API was also utilized due to its ability to collect data of the hackers in Berkeley, allowing us to perform analysis on them. Websocket.io is used to communicate between the server and client due to the periodic POST that the server receives from Meraki.
 
-The dashboard's functionality composes of the following:
+The dashboard's functionality composes of the following:<br />
 Real-time heat map
+<br/>
 ![Alt Text](https://media.giphy.com/media/xT9IgHmpc1WlRqIQ1i/giphy.gif)
+<br />
 Location marker for building interiors
+<br />
 ![Alt Text](https://media.giphy.com/media/l1J9BuncDaKJhva3C/giphy.gif)
+<br />
 Live Twitter feed
+<br />
 ![Alt Text](https://media.giphy.com/media/xT9IgiiNjM8MiiSKgU/giphy.gif)
+<br />
 Potential Improvements
 Due to the time constraints presented in the hackathon and the time it required to brainstorm a project, various trade-offs were explored. Given enough time, the team plans to focus on the data aspect of the dashboard (currently, the data is hard-coded) as well as potential machine learning applications to predict disasters before it happens.
