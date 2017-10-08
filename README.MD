@@ -23,4 +23,5 @@ The dashboard's functionality composes of the following:<br />
 ![Alt Text](https://media.giphy.com/media/xT9IgiiNjM8MiiSKgU/giphy.gif)
 <br />
 Potential Improvements
+<br />
 Due to the time constraints presented in the hackathon and the time it required to brainstorm a project, various trade-offs were explored. Given enough time, the team plans to focus on the data aspect of the dashboard (currently, the data is hard-coded) as well as potential machine learning applications to predict disasters before it happens.
