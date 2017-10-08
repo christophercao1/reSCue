@@ -2551,3 +2551,7 @@ a.text-primary:focus, a.text-primary:hover {
   border-bottom-right-radius: 0.2rem;
   border-top-right-radius: 0.2rem;
 }
+
+#myForm {
+  text-align: center;
+}
