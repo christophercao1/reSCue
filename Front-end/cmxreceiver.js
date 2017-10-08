@@ -60,15 +60,10 @@ function cmxData(data) {
           countX += 1;
           countY += 1;
           jsonData.push(Math.floor(Math.random() * 3));
-          // jsonData['lat'] += 0.0013;
-          // jsonData['lng'] += 0.0009;
-          // jsonData['alt'] = Math.floor(Math.random() * (2));
           locationsArray.push(jsonData);
         }
     }, locationsArray, sumX, sumY, countX, countY);
 
-    // console.log("Average X: " + sumX/countX);
-    // console.log("Average Y: " + sumY/countY);
     // if locationsArray is not empty, trigger an event
     if (locationsArray.length > 0) {
         io.emit('update', {locations: locationsArray});
@@ -83,7 +78,7 @@ app.get(route, function (req, res) {
     console.log("Validator = " + validator);
     res.status(200).send(validator);
 });
-// //
+
 // // Getting the flow of data every 1 to 2 minutes
 app.post(route, function (req, res) {
     if (req.body.secret == secret) {
@@ -94,19 +89,6 @@ app.post(route, function (req, res) {
     }
     res.status(200);
 });
-
-
-// app.get('/indoor', function (req,res) {
-//   res.sendFile(path.join(__dirname + '/indoor.html'));
-// });
-//
-// app.post('/modifyMap', function (req,res) {
-//
-// });
-//
-// app.post('/modifyIndoor', function(req,res) {
-//
-// });
 
 // Start server
 app.listen(port, function () {
