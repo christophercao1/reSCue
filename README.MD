@@ -1,6 +1,7 @@
 reSCue Dashboard
 A project hacked together in Cal Hacks 2017
 Created by: Chris Cao, Denim Mazuki, David Valdez, Thomas Zhang
+DevPost: https://devpost.com/software/rescue-xdkhc8
 
 A dashboard using APIs from Cisco Meraki, WRLD, and Twitter to provide location and sentiment analysis of a location.
 The dashboard was initially created with first-responders in mind because it allows visual representation of where people in the vicinity are moving. However, the dashboard can prove to provide good utility to even civilians.
