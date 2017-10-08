@@ -1,4 +1,5 @@
-reSCue Dashboard
+<b>reSCue Dashboard</b>
+</br>
 A project hacked together in Cal Hacks 2017
 Created by: Chris Cao, Denim Mazuki, David Valdez, Thomas Zhang
 DevPost: https://devpost.com/software/rescue-xdkhc8
