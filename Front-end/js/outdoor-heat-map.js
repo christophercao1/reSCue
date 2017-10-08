@@ -1,35 +1,25 @@
 var socket = io.connect('http://localhost:1891');
 var berkeleyCoords = [37.871016, -122.250791];
-// Average X: 37.870638838010784
-// x + 0.001
-// Average Y: -122.25150035532451
-// y + 0.001
-var map = L.Wrld.map("map", "90de4007cdd170854398f362eb1c834b", {
+var indoorCoords = [55.9178, -3.2397]
+
+var outdoor_map = L.Wrld.map("map", "90de4007cdd170854398f362eb1c834b", {
 	center: berkeleyCoords,
 	zoom: 16
 });
 
-var heat = L.heatLayer([]).addTo(map);
+var outdoor_heat = L.heatLayer([]).addTo(outdoor_map);
 
 socket.on('update', function(data) {
   console.log("Inside update");
   var objectArray = data['locations'];
-  objectArray.forEach(function(object) {
-    // var marker = L.marker(object, { title: "idk" }).addTo(map);
-    // console.log(object);
-  })
-  // var locArray = []
-  // for (var i = 0; i < objectArray.length; i++) {
-  //   locArray.push(L.latLng(objectArray[i]));
-  // };
-  // console.log(locArray);
-  // heat = L.heatLayer(locArray, {radius: 5, minOpacity: 0.2}).addTo(map);
-  heat.setLatLngs(objectArray);
-}, map, heat);
+  // objectArray.forEach(function(object) {
+  // })
+	console.log(objectArray);
+  // outdoor_heat.setLatLngs(objectArray);
+}, outdoor_map, outdoor_heat);
 
-// var marker = L.marker([37.87069872141118,-122.25155975210632], { title: "WE HERE"}).addTo(map);
-//-0.0005, -0.001
-var marker = L.marker([37.871016, -122.250791], { title: "idk"}).addTo(map);
+
+var marker = L.marker([37.871016, -122.250791], { title: "idk"}).addTo(outdoor_map);
 
 // function getRandomArbitrary(min, max) {
 //   return Math.random() * (max - min) + min;
